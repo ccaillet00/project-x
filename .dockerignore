@@ -38,3 +38,7 @@ postgres_data
 
 # docker compose
 docker-compose.yml 
+
+.nuxt
+.output
+dist
