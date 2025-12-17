@@ -9,7 +9,7 @@ WORKDIR /app
 COPY . /app/
 
 # Install dependencies
-RUN bun install
+RUN bun install --production
 
 # Start the Application
 CMD ["bun", "run", "start"]

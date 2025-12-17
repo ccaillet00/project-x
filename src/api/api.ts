@@ -4,12 +4,7 @@ import { db } from "../db/database"
 import { eq } from "drizzle-orm"
 import { and } from "drizzle-orm"
 
-//type Tweet = {id: number, tweet: string} // typisieren für die const tweet
-
 export const initializePostsAPI = (app: Express) => {
-
-    //const post: Tweet[] = []
-    
 
     app.get("/api/posts", async (req: Request, res: Response) => {
         const dbPosts = await db.select().from(twitterTable)

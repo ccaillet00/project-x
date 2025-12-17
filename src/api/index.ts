@@ -8,7 +8,3 @@ export const initializeAPI = (app: Express) => {
     initializePostsAPI(app)
     iniializeAuthAPI(app)
 }
-/*
-export const initializeAuthAPIWrapper = (app: Express) => {
-    iniializeAuthAPI(app)
-}*/

@@ -1,6 +1,5 @@
 import express from "express";
 import { initializeAPI } from "./api/index";
-//import { initializeAuthAPIWrapper } from "./api/index";
 
 const app = express()
 app.use(express.json());
