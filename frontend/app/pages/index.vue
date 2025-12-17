@@ -1,6 +1,9 @@
 <template>
   <div class="container mx-auto p-4">
-    <h1 class="text-2xl font-bold mb-4">Your Feed</h1>
+    <h1 class="text-3xl font-bold underline">Your Feed test</h1>
+    <button class="btn btn-primary">
+      View Map <Icon name="tabler:map" size="32" />
+    </button>
     <div>
       {{ posts.data }}
     </div>
