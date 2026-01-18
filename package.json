@@ -4,7 +4,11 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "start": "bun src/app.ts"
+    "start": "bun ./src/app.ts",
+    "db:push": "drizzle-kit push --config=drizzle.config.ts",
+    "db:migrate": "drizzle-kit migrate --config=drizzle.config.ts",
+    "db:generate": "drizzle-kit generate --config=drizzle.config.ts",
+    "db:studio": "drizzle-kit studio"
   },
   "devDependencies": {
     "@types/bcrypt": "^6.0.0",
