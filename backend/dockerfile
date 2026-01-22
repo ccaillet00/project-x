@@ -1,6 +1,6 @@
 # Base Image with Bun pre-installed
 
-FROM oven/bun:canary-alpine
+FROM oven/bun
 
 # Set the working directory 
 WORKDIR /app
@@ -9,7 +9,7 @@ WORKDIR /app
 COPY . /app/
 
 # Install dependencies
-RUN bun install --production
+RUN bun install
 
 # Start the Application
 CMD ["bun", "run", "start"]
