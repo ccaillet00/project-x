@@ -32,7 +32,7 @@ export default [
 
       // Mindestlänge für Variablen (Aussagekraft)
       "id-length": ["error", { min: 2, exceptions: ["i", "x", "y"] }],
-      "quotes": ["error", "double"],
+      quotes: ["error", "double"],
     },
   },
 ];
