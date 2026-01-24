@@ -11,6 +11,6 @@
 </template>
 
 <script setup lang="ts">
-  const { baseUrl } = useApi()
-  const posts = await useFetch(`${baseUrl}/api/posts`)
+const { baseUrl } = useApi();
+const posts = await useFetch(`${baseUrl}/api/posts`);
 </script>

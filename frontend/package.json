@@ -7,7 +7,10 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write ."
   },
   "dependencies": {
     "@nuxt/icon": "2.1.1",
@@ -17,6 +20,9 @@
   },
   "devDependencies": {
     "@iconify-json/tabler": "^1.2.24",
-    "daisyui": "^5.5.14"
+    "@nuxt/eslint": "^1.13.0",
+    "daisyui": "^5.5.14",
+    "eslint": "^9.39.2",
+    "prettier": "^3.8.1"
   }
 }
