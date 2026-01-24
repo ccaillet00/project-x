@@ -7,5 +7,5 @@
 </template>
 
 <script setup lang="ts">
-  // ...existing code...
+// ...existing code...
 </script>

@@ -1,6 +1,6 @@
 export const useApi = () => {
-  const config = useRuntimeConfig()
+  const config = useRuntimeConfig();
   return {
     baseUrl: config.public.apiBaseUrl,
-  }
-}
+  };
+};
