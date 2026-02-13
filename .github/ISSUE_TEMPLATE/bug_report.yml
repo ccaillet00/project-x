@@ -1,0 +1,25 @@
+name: 🐛 Bug Report
+description: Melde einen Fehler über ein Formular
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Danke, dass du dir die Zeit nimmst, einen Bug zu melden!
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      placeholder: "z.B. v1.0.4"
+    validations:
+      required: true
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Dringlichkeit
+      options:
+        - Niedrig (Optisch)
+        - Mittel (Funktion eingeschränkt)
+        - Hoch (Systemabsturz)
+    validations:
+      required: true
