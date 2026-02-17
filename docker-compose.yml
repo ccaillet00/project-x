@@ -1,23 +1,21 @@
-services: 
+services:
   webserver:
     image: nginx
     container_name: loadbalancer
     restart: unless-stopped
     ports:
-      - 80:80
+      - "80:80"
     volumes:
       - ./backend/nginx.conf:/etc/nginx/nginx.conf:ro
+
   api:
-    # image: oceradien/demo-api:latest
-    # container_name: demo-api
     build: ./backend
     restart: unless-stopped
     env_file:
-      - ./backend/.env
+      - .env
     depends_on:
       - database
-    deploy:
-      replicas: 2
+
   database:
     image: postgres:latest
     container_name: postgresSQL
@@ -32,12 +30,20 @@ services:
       - POSTGRES_DB=${POSTGRES_DB}
     volumes:
       - ./backend/postgres_data:/var/lib/postgresql
-  
+
   database_migration:
     build: ./backend
     depends_on:
       - database
     environment:
       - DATABASE_URL=${DATABASE_URL_DOCKER}
-    command: ["bash", "-c" ,"sleep 10 && bunx drizzle-kit push"]
+    command: ["bash", "-c", "sleep 10 && bunx drizzle-kit push"]
     restart: "no"
+
+  ollama:
+    image: ollama/ollama
+    container_name: ollama
+    ports:
+      - "12434:11434"
+    volumes:
+      - ./backend/postgres_data/ollama_data:/root/.ollama
