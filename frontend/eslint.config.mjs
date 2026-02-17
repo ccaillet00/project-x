@@ -7,6 +7,6 @@ export default withNuxt({
     "vue/multi-word-component-names": "error", // PascalCase/Struktur
     "vue/component-definition-name-casing": ["error", "PascalCase"],
     camelcase: "error", // camelCase für Variablen
-    "quotes": ["error", "double"],
+    quotes: ["error", "double"],
   },
 });
