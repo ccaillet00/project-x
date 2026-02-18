@@ -3,7 +3,7 @@ name: "User Story"
 about: Erstelle eine strukturierte User Story für das Entwickler-Team.
 title: "[STORY] "
 labels: story, feature
-assignees: []
+assignees:
 
 ---
 
