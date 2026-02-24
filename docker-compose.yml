@@ -12,9 +12,27 @@ services:
     build: ./backend
     restart: unless-stopped
     env_file:
-      - .env
+      - ./backend/.env
+    environment:
+      - SERVER_ROLE=api
+      - OLLAMA_HOST=${OLLAMA_HOST}
+      - REDIS_HOST=${REDIS_HOST}
+      - REDIS_PORT=${REDIS_PORT}
     depends_on:
       - database
+    deploy:
+      replicas: 2
+
+  worker:
+    build: ./backend
+    restart: unless-stopped
+    env_file:
+      - ./backend/.env
+    environment:
+      - SERVER_ROLE=worker
+      - OLLAMA_HOST=${OLLAMA_HOST}
+      - REDIS_HOST=${REDIS_HOST}
+      - REDIS_PORT=${REDIS_PORT}
 
   database:
     image: postgres:latest
@@ -47,3 +65,15 @@ services:
       - "12434:11434"
     volumes:
       - ./backend/postgres_data/ollama_data:/root/.ollama
+  
+  redis:
+    container_name: redis
+    image: redis/redis-stack:latest
+    restart: always
+    ports:
+      - "6379:6379" # Redis server
+      - "8001:8001" # RedisInsight
+    healthcheck:
+      test: ["CMD", "redis-cli", "--raw", "incr", "ping"]
+    volumes: 
+      - ./backend/postgres_data/redis:/data

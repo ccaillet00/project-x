@@ -6,6 +6,8 @@ export const twitterTable = pgTable("twitter", {
   userId: integer()
     .notNull()
     .references(() => userTable.id, { onDelete: "cascade" }),
+  sentiment: varchar({ length: 80 }),
+  correction: varchar({ length: 255 }),
 });
 
 export const userTable = pgTable("user", {
