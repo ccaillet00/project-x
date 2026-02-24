@@ -3,6 +3,7 @@ import { twitterTable } from "../db/schema";
 import { db } from "../db/database";
 import { eq } from "drizzle-orm";
 import { and } from "drizzle-orm";
+import { sentimentQueue } from "../message-broker";
 
 export const initializePostsAPI = (app: Express) => {
   app.get("/api/posts", async (req: Request, res: Response) => {
@@ -21,6 +22,16 @@ export const initializePostsAPI = (app: Express) => {
       .insert(twitterTable)
       .values({ tweet, userId })
       .returning();
+    if (!tweet.length) {
+      res.status(404).send({ message: "type a text" });
+      return;
+    }
+
+    if (!createDBPost[0]) {
+      res.status(500).send({ message: "Failed to create post" });
+      return;
+    }
+    sentimentQueue.add("analyze", { id: createDBPost[0].id });
     res.send(createDBPost[0]);
   });
 
