@@ -1,14 +1,14 @@
 import { type Request, type Response, type Express } from "express";
 import { twitterTable } from "../db/schema";
 import { db } from "../db/database";
-import { eq } from "drizzle-orm";
-import { and } from "drizzle-orm";
+import { eq, and } from "drizzle-orm";
 import { sentimentQueue } from "../message-broker";
+import { getPosts, invalidatePostsCache } from "../service/cache";
 
 export const initializePostsAPI = (app: Express) => {
   app.get("/api/posts", async (req: Request, res: Response) => {
-    const dbPosts = await db.select().from(twitterTable);
-    res.send(dbPosts);
+    const userId = req.user?.id;
+    res.send(await getPosts(userId));
   });
 
   app.post("/api/posts", async (req: Request, res: Response) => {
@@ -52,6 +52,11 @@ export const initializePostsAPI = (app: Express) => {
       res.status(404).send({ message: "Not found or not authorized" });
       return;
     }
+    if (!updateDBPost[0]) {
+      res.status(500).send({ message: "Failed to create post" });
+      return;
+    }
+    sentimentQueue.add("analyze", { id: updateDBPost[0].id });
     res.send(updateDBPost);
   });
 
@@ -71,6 +76,7 @@ export const initializePostsAPI = (app: Express) => {
       res.status(404).send({ message: "Not found or not authorized" });
       return;
     }
+    await invalidatePostsCache();
     res.send({ message: "Tweet gelöscht", deleted: deleteDBPost });
   });
 };
