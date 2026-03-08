@@ -1,7 +1,9 @@
 import tailwindcss from "@tailwindcss/vite";
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  compatibilityDate: "2024-11-01",
+  future: {
+    compatibilityVersion: 4,
+  },
   devtools: { enabled: true },
   ssr: false,
   modules: ["@nuxt/icon", "@nuxt/eslint"],
@@ -13,12 +15,16 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     public: {
-      apiBaseUrl: "http://localhost:3000",
+      apiBaseUrl: "http://localhost",
     },
   },
 
   vite: {
     plugins: [tailwindcss()],
+  },
+  // @ts-ignore remove later
+  colorMode: {
+    dataValue: "theme",
   },
   eslint: {
     config: {
