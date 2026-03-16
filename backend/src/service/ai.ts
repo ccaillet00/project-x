@@ -25,7 +25,7 @@ export const initializeOllama = async () => {
 
 const textAnalysisResult = z.object({
   sentiment: z.enum(["ok", "dangerous"]),
-  correction: z.string(),
+  correction: z.string().max(1024),
 });
 
 export async function textAnalysis(text: string) {

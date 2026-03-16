@@ -3,11 +3,9 @@
 const props = defineProps<{ data: any }>();
 const emit = defineEmits<{
   select: [data: any];
-  like: [id: number];
   edit: [data: any];
   delete: [id: number];
 }>();
-
 const { user } = useUser();
 const isOwner = computed(
   () => Number(props.data.userId) === Number(user.value?.id),
@@ -24,15 +22,15 @@ const isOwner = computed(
       <div class="flex items-center justify-between">
         <div class="flex items-center gap-3">
           <AvatarIcon
-            :username="data.user?.username ?? `user_${data.userId}`"
+            :username="data.username ?? `user_${data.userId}`"
             size="md"
           />
           <div>
             <p class="font-bold text-sm leading-tight">
-              {{ data.user?.username || `User #${data.userId}` }}
+              {{ data.username || `User #${data.userId}` }}
             </p>
             <p class="text-xs opacity-40">
-              @{{ data.user?.username?.toLowerCase() || `user_${data.userId}` }}
+              @{{ data.username?.toLowerCase() || `user_${data.userId}` }}
             </p>
           </div>
         </div>
@@ -74,6 +72,11 @@ const isOwner = computed(
 
       <!-- Tweet Text -->
       <p class="text-sm leading-relaxed">{{ data.tweet }}</p>
+      <!-- KI Einschätzung -->
+      <div v-if="data.correction" class="flex items-start gap-2 bg-base-200/60 rounded-xl px-3 py-2" @click.stop>
+        <Icon name="tabler:robot" size="14" class="opacity-40 mt-0.5 shrink-0" />
+        <p class="text-xs opacity-40 italic leading-relaxed">{{ data.correction, data.sentiment }}</p>
+      </div>
     </div>
   </div>
 </template>

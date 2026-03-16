@@ -37,7 +37,7 @@ report.[0-9]_.[0-9]_.[0-9]_.[0-9]_.json
 .idea
 
 #DB Daten
-postgres_data
+docker-data
 
 # Nuxt dev/build outputs
 .output

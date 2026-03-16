@@ -38,12 +38,12 @@ const confirmEdit = () => {
         >
           <div class="flex items-center gap-3">
             <AvatarIcon
-              :username="tweet.user?.username ?? `user_${tweet.userId}`"
+              :username="tweet.username ?? `user_${tweet.userId}`"
               size="md"
             />
             <div>
               <p class="font-bold text-sm">
-                {{ tweet.user?.username || `User #${tweet.userId}` }}
+                {{ tweet.username || `User #${tweet.userId}` }}
               </p>
               <p class="text-xs opacity-40">
                 @{{

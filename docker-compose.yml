@@ -1,4 +1,15 @@
 services:
+  frontend-demo-api:
+    build:
+      context: frontend
+      dockerfile: Dockerfile
+    container_name: frontend-demo-api
+    restart: unless-stopped
+    ports:
+      - "4000:4000"
+    environment:
+      - NUXT_PUBLIC_API_BASE_URL=http://localhost
+      - NUXT_API_BASE_URL=http://webserver:80 
   webserver:
     image: nginx
     container_name: loadbalancer
@@ -53,27 +64,15 @@ services:
       POSTGRES_PASSWORD: supersecret123
       POSTGRES_DB: minitwitter
     volumes:
-      - ./backend/postgres_data:/var/lib/postgresql
+      - ./backend/docker-data:/var/lib/postgresql
 
-<<<<<<< HEAD
-  database_migration:
-    build: ./backend
-    depends_on:
-      - database
-    environment:
-      - DATABASE_URL=${DATABASE_URL}
-    command: ["bash", "-c", "sleep 10 && bunx drizzle-kit push"]
-    restart: "no"
-
-=======
->>>>>>> #39
   ollama:
     image: ollama/ollama
     container_name: ollama
     ports:
       - "12434:11434"
     volumes:
-      - ./backend/postgres_data/ollama_data:/root/.ollama
+      - ./backend/docker-data/ollama_data:/root/.ollama
   
   redis:
     container_name: redis
@@ -85,7 +84,7 @@ services:
     healthcheck:
       test: ["CMD", "redis-cli", "--raw", "incr", "ping"]
     volumes: 
-      - ./backend/postgres_data/redis:/data
+      - ./backend/docker-data/redis:/data
 
   prometheus:
     image: prom/prometheus
@@ -99,7 +98,7 @@ services:
     ports: 
     - 3100:3000
     volumes:
-    - ./backend/postgres_data/grafana:/var/lib/grafana
+    - ./backend/docker-data/grafana:/var/lib/grafana
     
   database_migration:
     build:

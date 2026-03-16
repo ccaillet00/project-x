@@ -3,14 +3,10 @@ import { initializePostsAPI } from "./api";
 import { iniializeAuthAPI } from "./auth";
 import authMiddleware from "./auth-middlewares";
 import cors from "cors";
-<<<<<<< HEAD
-import { limiter } from "./rate-limiter";
-=======
 import { httpLogger } from "../service/logger";
 import { limiter } from "./rate-limiter"
 import promMid from "express-prometheus-middleware"
 
->>>>>>> #39
 
 export const initializeAPI = (app: Express) => {
     app.use(

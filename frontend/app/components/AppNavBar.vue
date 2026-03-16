@@ -7,6 +7,7 @@
     <AppThemeToggle />
     <div class="flex gap-2">
       <input
+        disabled
         type="text"
         placeholder="Search"
         class="input input-bordered w-24 md:w-auto"
