@@ -33,12 +33,14 @@
     "typescript": "^5"
   },
   "dependencies": {
+    "@types/express-rate-limit": "^6.0.2",
     "bcrypt": "^6.0.0",
     "bullmq": "^5.70.1",
     "cors": "^2.8.5",
     "dotenv": "^17.2.3",
     "drizzle-orm": "^0.44.7",
     "express": "^5.1.0",
+    "express-rate-limit": "^8.3.1",
     "ioredis": "^5.9.3",
     "jsonwebtoken": "^9.0.3",
     "ollama": "^0.6.3",

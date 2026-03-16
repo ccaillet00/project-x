@@ -12,7 +12,7 @@ services:
     build: ./backend
     restart: unless-stopped
     env_file:
-      - ./backend/.env
+      - .env
     environment:
       - SERVER_ROLE=api
       - OLLAMA_HOST=${OLLAMA_HOST}
@@ -27,7 +27,7 @@ services:
     build: ./backend
     restart: unless-stopped
     env_file:
-      - ./backend/.env
+      - .env
     environment:
       - SERVER_ROLE=worker
       - OLLAMA_HOST=${OLLAMA_HOST}
@@ -54,7 +54,7 @@ services:
     depends_on:
       - database
     environment:
-      - DATABASE_URL=${DATABASE_URL_DOCKER}
+      - DATABASE_URL=${DATABASE_URL}
     command: ["bash", "-c", "sleep 10 && bunx drizzle-kit push"]
     restart: "no"
 
