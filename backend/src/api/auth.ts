@@ -20,10 +20,15 @@ if (!jwtSecret) {
         const newUser = await db.insert(userTable).values({username: username, email: email, password: hashedPassword}).returning()
         const token = jwt.sign({ id: newUser[0]?.id, username: newUser[0]?.username }, jwtSecret, {expiresIn: "1h"} )
         res.send({ message: "User registered successfully", user: newUser, jwt: token });
-        } catch (error: any) {
+        } catch (error: unknown) {
             console.error("Fehler beim erstellen des Users", error)
+
+            if (error instanceof Error) {
             res.status(500).json({ message: error.cause}) // less details? 
+        } else {
+            res.status(500).json({ message: "Unbekannter Fehler"})
         }
+    }
     })
 
     app.post("/api/auth/login", async (req: Request, res: Response) => {

@@ -1,36 +1,36 @@
 <!-- components/CreatePost.vue -->
 <script setup lang="ts">
-const { baseUrl } = useApi()
-const { user } = useUser()
-const isOpen = ref(false)
-const content = ref('')
-const loading = ref(false)
-const error = ref<string | null>(null)
+const { baseUrl } = useApi();
+const { user } = useUser();
+const isOpen = ref(false);
+const content = ref("");
+const loading = ref(false);
+const error = ref<string | null>(null);
 
 const submit = async () => {
-  if (!content.value.trim()) return
-  loading.value = true
-  error.value = null
+  if (!content.value.trim()) return;
+  loading.value = true;
+  error.value = null;
 
   try {
-    await $fetch(${baseUrl}/api/posts, {
-      method: 'POST',
-      headers: { Authorization: Bearer ${useCookie('token').value} },
+    await $fetch(`${baseUrl}/api/posts`, {
+      method: "POST",
+      headers: { Authorization: `Bearer ${useCookie("token").value}` },
       body: {
         tweet: content.value,
-        userId: user.value?.id
-      }
-    })
-    content.value = ''
-    isOpen.value = false
+        userId: user.value?.id,
+      },
+    });
+    content.value = "";
+    isOpen.value = false;
   } catch (err: any) {
-    error.value = err.data?.message || 'Post konnte nicht erstellt werden'
+    error.value = err.data?.message || "Post konnte nicht erstellt werden";
   } finally {
-    loading.value = false
+    loading.value = false;
   }
-  window.dispatchEvent(new Event('post-created'))
-    isOpen.value = false
-}
+  window.dispatchEvent(new Event("post-created"));
+  isOpen.value = false;
+};
 </script>
 
 <template>
@@ -43,17 +43,22 @@ const submit = async () => {
   <!-- Modal -->
   <dialog class="modal" :class="{ 'modal-open': isOpen }">
     <div class="modal-box max-w-lg bg-base-100 rounded-2xl p-0 overflow-hidden">
-
       <!-- Header -->
-      <div class="flex items-center justify-between px-6 py-4 border-b border-base-200">
+      <div
+        class="flex items-center justify-between px-6 py-4 border-b border-base-200"
+      >
         <div class="flex items-center gap-3">
           <AvatarIcon :username="user?.username" size="md" />
           <div>
             <p class="font-bold text-sm">{{ user?.username }}</p>
-            <p class="text-xs opacity-40">@{{ user?.username?.toLowerCase() }}</p>
+            <p class="text-xs opacity-40">
+              @{{ user?.username?.toLowerCase() }}
+            </p>
           </div>
         </div>
-        <button @click="isOpen = false" class="btn btn-sm btn-circle btn-ghost">✕</button>
+        <button class="btn btn-sm btn-circle btn-ghost" @click="isOpen = false">
+          ✕
+        </button>
       </div>
 
       <!-- Form -->
@@ -73,18 +78,19 @@ const submit = async () => {
         </div>
 
         <div class="flex justify-end gap-2 border-t border-base-200 pt-4">
-          <button @click="isOpen = false" class="btn btn-ghost btn-sm">Abbrechen</button>
+          <button class="btn btn-ghost btn-sm" @click="isOpen = false">
+            Abbrechen
+          </button>
           <button
-            @click="submit"
             :disabled="!content.trim() || loading"
             class="btn btn-primary btn-sm px-6"
+            @click="submit"
           >
-            <span v-if="loading" class="loading loading-spinner loading-xs"></span>
+            <span v-if="loading" class="loading loading-spinner loading-xs" />
             <span v-else>Posten</span>
           </button>
         </div>
       </div>
-
     </div>
 
     <form method="dialog" class="modal-backdrop bg-black/50 backdrop-blur-sm">

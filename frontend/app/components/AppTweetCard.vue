@@ -1,15 +1,17 @@
 <!-- components/TweetCard.vue -->
 <script setup lang="ts">
-const props = defineProps<{ data: any }>()
+const props = defineProps<{ data: any }>();
 const emit = defineEmits<{
-  select: [data: any]
-  like: [id: number]
-  edit: [data: any]
-  delete: [id: number]
-}>()
+  select: [data: any];
+  like: [id: number];
+  edit: [data: any];
+  delete: [id: number];
+}>();
 
-const { user } = useUser()
-const isOwner = computed(() => Number(props.data.userId) === Number(user.value?.id))
+const { user } = useUser();
+const isOwner = computed(
+  () => Number(props.data.userId) === Number(user.value?.id),
+);
 </script>
 
 <template>
@@ -18,14 +20,20 @@ const isOwner = computed(() => Number(props.data.userId) === Number(user.value?.
     @click="emit('select', data)"
   >
     <div class="card-body p-6 gap-4">
-
       <!-- Header -->
       <div class="flex items-center justify-between">
         <div class="flex items-center gap-3">
-          <AvatarIcon :username="data.user?.username ?? user_${data.userId}" size="md" />
+          <AvatarIcon
+            :username="data.user?.username ?? `user_${data.userId}`"
+            size="md"
+          />
           <div>
-            <p class="font-bold text-sm leading-tight">{{ data.user?.username || User #${data.userId} }}</p>
-            <p class="text-xs opacity-40">@{{ data.user?.username?.toLowerCase() || user_${data.userId} }}</p>
+            <p class="font-bold text-sm leading-tight">
+              {{ data.user?.username || `User #${data.userId}` }}
+            </p>
+            <p class="text-xs opacity-40">
+              @{{ data.user?.username?.toLowerCase() || `user_${data.userId}` }}
+            </p>
           </div>
         </div>
 
@@ -34,18 +42,27 @@ const isOwner = computed(() => Number(props.data.userId) === Number(user.value?.
 
           <!-- Drei Punkte Dropdown (nur für eigene Posts) -->
           <div v-if="isOwner" class="dropdown dropdown-end" @click.stop>
-            <button tabindex="0" class="btn btn-ghost btn-xs btn-circle opacity-50 hover:opacity-100">
+            <button
+              tabindex="0"
+              class="btn btn-ghost btn-xs btn-circle opacity-50 hover:opacity-100"
+            >
               <Icon name="tabler:dots" size="16" />
             </button>
-            <ul tabindex="0" class="dropdown-content menu bg-base-100 border border-base-300 rounded-xl shadow-lg z-10 w-40 p-1">
+            <ul
+              tabindex="0"
+              class="dropdown-content menu bg-base-100 border border-base-300 rounded-xl shadow-lg z-10 w-40 p-1"
+            >
               <li>
-                <button @click="emit('edit', data)" class="text-sm gap-2">
+                <button class="text-sm gap-2" @click="emit('edit', data)">
                   <Icon name="tabler:pencil" size="15" />
                   Bearbeiten
                 </button>
               </li>
               <li>
-                <button @click="emit('delete', data.id)" class="text-sm text-error gap-2">
+                <button
+                  class="text-sm text-error gap-2"
+                  @click="emit('delete', data.id)"
+                >
                   <Icon name="tabler:trash" size="15" />
                   Löschen
                 </button>
@@ -57,7 +74,6 @@ const isOwner = computed(() => Number(props.data.userId) === Number(user.value?.
 
       <!-- Tweet Text -->
       <p class="text-sm leading-relaxed">{{ data.tweet }}</p>
-
     </div>
   </div>
 </template>

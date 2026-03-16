@@ -1,8 +1,8 @@
 // middleware/guest.ts
 export default defineNuxtRouteMiddleware(() => {
-  const token = useCookie('token')
+  const token = useCookie("token");
 
   if (token.value) {
-    return navigateTo('/dashboard')
+    return navigateTo("/dashboard");
   }
-})
+});

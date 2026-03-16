@@ -1,10 +1,13 @@
 <!-- pages/hero.vue -->
 <script setup lang="ts">
-definePageMeta({ middleware: 'auth',
-path: "/dashboard" })
+definePageMeta({
+  layout: "app-default",
+  middleware: "auth",
+  path: "/dashboard",
+});
 
-const { tweets, error, pending, refresh } = useTweets()
-const { selectedTweet, deleteTweet, editTweet } = useTweetActions(refresh)
+const { tweets, error, pending, refresh } = useTweets();
+const { selectedTweet, deleteTweet, editTweet } = useTweetActions(refresh);
 </script>
 
 <template>
@@ -27,19 +30,22 @@ const { selectedTweet, deleteTweet, editTweet } = useTweetActions(refresh)
     :class="{ 'blur-sm pointer-events-none': selectedTweet }"
   >
     <div v-if="pending && !tweets" class="flex flex-col items-center py-10">
-      <span class="loading loading-spinner loading-lg"></span>
+      <span class="loading loading-spinner loading-lg" />
       <p class="mt-2 text-sm opacity-50">Lade Tweets...</p>
     </div>
 
     <div v-else-if="error">
-      <div role="alert" class="alert alert-error flex items-center w-full shadow-lg">
+      <div
+        role="alert"
+        class="alert alert-error flex items-center w-full shadow-lg"
+      >
         <Icon name="tabler:xbox-x" size="24" />
         <span>{{ error.message }}</span>
       </div>
     </div>
 
     <div v-else class="flex flex-col gap-3">
-      <TweetCard
+      <AppTweetCard
         v-for="item in tweets"
         :key="item.id"
         :data="item"
@@ -50,7 +56,7 @@ const { selectedTweet, deleteTweet, editTweet } = useTweetActions(refresh)
     </div>
   </div>
 
-  <TweetModal
+  <AppTweetModal
     :tweet="selectedTweet"
     @close="selectedTweet = null"
     @delete="deleteTweet"

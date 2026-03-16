@@ -1,18 +1,17 @@
 export interface LoginForm {
-    username: string
-    password: string
-    remember: number
+  username: string;
+  password: string;
+  remember: number;
 }
 
 export interface AuthResponse {
-    jwt:string
+  jwt: string;
 }
-
 
 export interface signUpForm {
-    username: string
-    email:string
-    password: string
+  username: string;
+  email: string;
+  password: string;
 }
 
-export{}
+export {};
