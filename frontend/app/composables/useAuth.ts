@@ -11,7 +11,7 @@ export const useAuth = () => {
         error.value = null
 
         try {
-            const data = await $fetch<AuthResponse>(${config.public.apiBaseUrl}/api/auth/login, {
+            const data = await $fetch<AuthResponse>(`${config.public.apiBaseUrl}/api/auth/login`, {
                 method: 'POST',
                 body: formData
             })
@@ -38,7 +38,7 @@ export const useAuth = () => {
         error.value = null
 
         try {
-            const data = await $fetch<any>(${config.public.apiBaseUrl}/api/auth/register, { // change type
+            const data = await $fetch<any>(`${config.public.apiBaseUrl}/api/auth/register`, { // change type
                 method: "POST",
                 body: formData
             })
