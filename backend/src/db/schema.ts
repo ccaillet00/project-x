@@ -8,7 +8,7 @@ export const twitterTable = pgTable("twitter", {
     .references(() => userTable.id, { onDelete: "cascade" }),
   sentiment: varchar({ length: 80 }),
   correction: varchar({ length: 1024 }),
-  created: timestamp().defaultNow()
+  created: timestamp().defaultNow(),
 });
 
 export const userTable = pgTable("user", {
@@ -16,5 +16,5 @@ export const userTable = pgTable("user", {
   username: varchar({ length: 255 }).notNull().unique(),
   email: varchar({ length: 100 }).notNull(),
   password: varchar({ length: 255 }).notNull(),
-  created: timestamp().defaultNow()
+  created: timestamp().defaultNow(),
 });

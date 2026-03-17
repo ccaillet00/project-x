@@ -3,7 +3,7 @@ import { initializeAPI } from "./api/index";
 import cors from "cors";
 import { initializeMessageBroker } from "./message-broker";
 import { initializeCache } from "./service/cache";
-import { logger } from "./service/logger"
+import { logger } from "./service/logger";
 
 const SERVER_ROLE = process.env.SERVER_ROLE || "all";
 const allowedServerRoles = ["all", "api", "worker"];

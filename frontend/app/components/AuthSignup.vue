@@ -12,7 +12,7 @@
           type="text"
           placeholder="Username"
           class="input input-bordered w-full bg-base-200 border-none focus:ring-2 focus:ring-primary/50"
-        />
+        >
       </div>
 
       <div class="fieldset p-0">
@@ -22,7 +22,7 @@
           type="email"
           placeholder="name@bakery.com"
           class="input input-bordered w-full bg-base-200 border-none focus:ring-2 focus:ring-primary/50"
-        />
+        >
       </div>
 
       <div class="fieldset p-0">
@@ -34,7 +34,7 @@
           type="password"
           placeholder="••••••••"
           class="input input-bordered w-full bg-base-200 border-none focus:ring-2 focus:ring-primary/50"
-        />
+        >
       </div>
 
       <button

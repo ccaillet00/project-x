@@ -14,9 +14,9 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     public: {
-      apiBaseUrl: 'http://webserver:80',
+      apiBaseUrl: "http://webserver:80",
       public: {
-        apiBaseUrl: 'http://localhost'
+        apiBaseUrl: "http://localhost"
       }
     },
   },

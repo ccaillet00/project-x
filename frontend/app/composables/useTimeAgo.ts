@@ -1,8 +1,8 @@
 export const useTimeAgo = (date: string | Date | null | undefined): string => {
-  if (!date) return ''
+  if (!date) return ""
   
   const then = new Date(date)
-  if (isNaN(then.getTime())) return '' // ← ungültiges Datum abfangen
+  if (isNaN(then.getTime())) return "" // ← ungültiges Datum abfangen
   
   const now = new Date()
   const diff = Math.floor((now.getTime() - then.getTime()) / 1000)

@@ -2,7 +2,7 @@ import { eq } from "drizzle-orm";
 import { db } from "../db/database";
 import { twitterTable, userTable } from "../db/schema";
 import IORedis from "ioredis";
-import { logger } from "./logger"
+import { logger } from "./logger";
 
 const CACHE_ACTIVE = (process.env.CACHE_ACTIVE || "true") === "true";
 
@@ -57,18 +57,20 @@ const getPostsFromCache = async (cachedKey: string) => {
 };
 
 const getPostsFromDB = async (userId?: number) => {
-  let query = db.select({
+  let query = db
+    .select({
       id: twitterTable.id,
       tweet: twitterTable.tweet,
       userId: twitterTable.userId,
       created: twitterTable.created,
       sentiment: twitterTable.sentiment,
       correction: twitterTable.correction,
-      username: userTable.username
-  }).from(twitterTable)
-  .leftJoin(userTable, eq(twitterTable.userId, userTable.id));
+      username: userTable.username,
+    })
+    .from(twitterTable)
+    .leftJoin(userTable, eq(twitterTable.userId, userTable.id));
   if (userId) {
-    return await query.where(eq(twitterTable.userId, userId))
+    return await query.where(eq(twitterTable.userId, userId));
   }
   logger.info("Get post from DB");
   return await query;

@@ -43,7 +43,7 @@ const analyzeSentiment = async (job: Job) => {
     console.log(sentiment);
     console.log(updateDBPost);
   }
- await invalidatePostsCache()
+  await invalidatePostsCache();
   // 1. Generate job when new post is created with post id (in api/api.ts POST/PUT endpoint)
   // 2. Fetch the post from the database
   // 3. Analyze the sentiment of the post (services/ai.ts -> textAnalysis)

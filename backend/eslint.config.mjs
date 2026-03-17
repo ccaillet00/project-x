@@ -5,6 +5,12 @@ import prettierConfig from "eslint-config-prettier";
 
 export default [
   {
+    ignores: [
+      "**/*.md",
+      "dist/**",
+      "postgres_data/**", // ← bereits ignoriert
+      "docker-data/**", // ← neu
+    ],
     // Bestimmt, welche Dateien geprüft werden
     files: ["**/*.ts", "**/*.js"],
     languageOptions: {

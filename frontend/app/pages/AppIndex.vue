@@ -31,7 +31,7 @@
         src="../assets/images/LoginPreview.png"
         alt="Authentication Preview"
         class="w-full h-full object-cover saturate-200"
-      />
+      >
     </div>
   </div>
 </template>

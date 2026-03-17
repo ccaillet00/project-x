@@ -13,7 +13,7 @@
           placeholder="Enter your username"
           :disabled="loading"
           class="input input-bordered w-full bg-base-200 border-none focus:ring-2 focus:ring-primary/50 transition-all"
-        />
+        >
       </div>
 
       <div class="fieldset p-0">
@@ -26,7 +26,7 @@
           placeholder="••••••••"
           :disabled="loading"
           class="input input-bordered w-full bg-base-200 border-none focus:ring-2 focus:ring-primary/50 transition-all"
-        />
+        >
       </div>
 
       <div class="flex items-center justify-between mt-2">
@@ -41,7 +41,7 @@
                 ? 1
                 : 0
             "
-          />
+          >
           <span class="label-text text-sm">Remember for 30 days</span>
         </label>
       </div>
