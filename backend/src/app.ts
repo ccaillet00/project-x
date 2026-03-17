@@ -3,6 +3,7 @@ import { initializeAPI } from "./api/index";
 import cors from "cors";
 import { initializeMessageBroker } from "./message-broker";
 import { initializeCache } from "./service/cache";
+import { logger } from "./service/logger";
 
 const SERVER_ROLE = process.env.SERVER_ROLE || "all";
 const allowedServerRoles = ["all", "api", "worker"];
@@ -21,6 +22,6 @@ if (SERVER_ROLE === "all" || SERVER_ROLE === "api") {
   app.use(cors());
   initializeAPI(app);
   app.listen(port, () => {
-    console.log("Webserver is running on", port);
+    logger.info(`Webserver is running on  ${port}`);
   });
 }

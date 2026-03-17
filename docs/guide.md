@@ -11,8 +11,8 @@ Falls das Projekt aktuell noch nicht auf dem eigenen Gerät sich befindet sieht 
 
 ## Projekt schon auf dem Gerät vorhanden
 Falls das Projekt schon auf dem Gerät vorhanden haben, also das Repository wurde schon einmal gecloned sieht der Ablauf wie folgt aus: 
-1. `git pull` um alle Änderungen im main und neu erstellten branches zu ziehen. Dein Projekt ist nun wieder aktuell gemäss Github Repository.
-2. `git checkout -b feature:#4` branch erstellen mit der User Story Number. 
+1. `git fetch origin` um alle Änderungen im main und neu erstellten branches zu ziehen. Dein Projekt ist nun wieder aktuell gemäss Github Repository.
+2. `git checkout -b #4` branch erstellen mit der User Story Number. 
 3. `.env` File sollte schon vorhanden sein. Allenfalls kurz `.env.example` öffnen ob man eine neue Variabel hinzufügen muss von einer Änderung. Darauf achten welches .env File angedacht ist ob im Backend oder im Frontend. 
 
 ## Arbeiten sind erledigt

@@ -1,4 +1,4 @@
-import { integer, pgTable, varchar } from "drizzle-orm/pg-core";
+import { integer, pgTable, varchar, timestamp } from "drizzle-orm/pg-core";
 
 export const twitterTable = pgTable("twitter", {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
@@ -7,11 +7,14 @@ export const twitterTable = pgTable("twitter", {
     .notNull()
     .references(() => userTable.id, { onDelete: "cascade" }),
   sentiment: varchar({ length: 80 }),
-  correction: varchar({ length: 255 }),
+  correction: varchar({ length: 1024 }),
+  created: timestamp().defaultNow(),
 });
 
 export const userTable = pgTable("user", {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
   username: varchar({ length: 255 }).notNull().unique(),
+  email: varchar({ length: 100 }).notNull(),
   password: varchar({ length: 255 }).notNull(),
+  created: timestamp().defaultNow(),
 });

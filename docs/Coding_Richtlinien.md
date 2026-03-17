@@ -15,7 +15,6 @@
 
 ## TypeScript & Qualität (ESLint & Prettier)
 - **Kein `any`:** Wir versuchen, den Typ immer anzugeben. Wenn wir ihn nicht wissen, fragen wir in der Gruppe oder nutzen `unknown`.
-- **Interfaces:** Für Datenobjekte (z.B. ein User oder ein Produkt) erstellen wir immmer ein `interface`.
 - **ESLint-Prüfung vor jedem Push:** Bevor Code zu GitHub hochgeladen (gepusht) wird, muss lokal eine Prüfung mit ESLint durchgeführt werden.
     - Regel: Es darf kein Code gepusht werden, der ESLint-Fehler (rote Markierungen) enthält.
     - Ziel: Wir verhindern, dass Fehler von einer Person das gesamte Projekt für alle anderen blockieren.

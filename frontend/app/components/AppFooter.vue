@@ -1,11 +1,7 @@
 <template>
-  <footer class="bg-gray-100">
-    <div class="max-w-6xl mx-auto p-4 w-full">
-      <p class="text-center text-gray-600">© 2024 Minitwitter</p>
+  <footer>
+    <div class="mt-12 text-sm text-gray-500 m-8">
+      © {{ new Date().getFullYear() }} Project-x Team
     </div>
   </footer>
 </template>
-
-<script setup lang="ts">
-// ...existing code...
-</script>

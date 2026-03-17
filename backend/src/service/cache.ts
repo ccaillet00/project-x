@@ -1,7 +1,8 @@
 import { eq } from "drizzle-orm";
 import { db } from "../db/database";
-import { twitterTable } from "../db/schema";
+import { twitterTable, userTable } from "../db/schema";
 import IORedis from "ioredis";
+import { logger } from "./logger";
 
 const CACHE_ACTIVE = (process.env.CACHE_ACTIVE || "true") === "true";
 
@@ -9,13 +10,13 @@ let redis: IORedis;
 
 export const initializeCache = async () => {
   if (redis || !CACHE_ACTIVE) return;
-  console.log("Initializing Redis Cache...");
+  logger.info("Initializing Redis Cache...");
   redis = new IORedis({
     host: process.env.REDIS_HOST || "localhost",
     port: parseInt(process.env.REDIS_PORT || "6379"),
     maxRetriesPerRequest: null,
   });
-  console.log("Redis Cache initialized");
+  logger.info("Redis Cache initialized");
 };
 
 type Posts = Awaited<ReturnType<typeof getPostsFromDB>>;
@@ -28,11 +29,11 @@ export const getPosts = async (userId?: number) => {
   try {
     const cachedPosts = await getPostsFromCache(cacheKey);
     if (cachedPosts) {
-      console.log(`Cache hit for ${cacheKey}`);
+      logger.info(`Cache hit for ${cacheKey}`);
       return cachedPosts;
     }
   } catch (error) {
-    console.log("Cache retrieval error:", error);
+    logger.error(`Cache retrieval error: ${error}`);
   }
 
   const posts = await getPostsFromDB(userId);
@@ -49,22 +50,30 @@ const getPostsFromCache = async (cachedKey: string) => {
   try {
     return JSON.parse(cached);
   } catch (error) {
-    console.log("Cache parse error:", error);
+    logger.error(`Cache parse error: ${error}`);
     await redis.del(cachedKey);
     return null;
   }
 };
 
 const getPostsFromDB = async (userId?: number) => {
-  let query = await db.select().from(twitterTable);
+  let query = db
+    .select({
+      id: twitterTable.id,
+      tweet: twitterTable.tweet,
+      userId: twitterTable.userId,
+      created: twitterTable.created,
+      sentiment: twitterTable.sentiment,
+      correction: twitterTable.correction,
+      username: userTable.username,
+    })
+    .from(twitterTable)
+    .leftJoin(userTable, eq(twitterTable.userId, userTable.id));
   if (userId) {
-    query = await db
-      .select()
-      .from(twitterTable)
-      .where(eq(twitterTable.userId, userId));
+    return await query.where(eq(twitterTable.userId, userId));
   }
-  console.log("Get post from DB");
-  return query;
+  logger.info("Get post from DB");
+  return await query;
 };
 
 const setPostsInCache = async (posts: Posts, cacheKey: string) => {
@@ -72,9 +81,9 @@ const setPostsInCache = async (posts: Posts, cacheKey: string) => {
 
   try {
     await redis.set(cacheKey, JSON.stringify(posts));
-    console.log(`Cache set for ${cacheKey}`);
+    logger.info(`Cache set for ${cacheKey}`);
   } catch (error) {
-    console.log("Cache set error", error);
+    logger.error(`Cache set error ${error}`);
   }
 };
 
@@ -87,8 +96,8 @@ export const invalidatePostsCache = async () => {
     if (keys.length > 0) {
       await redis.del(...keys);
     }
-    console.log("Posts cache invalidated");
+    logger.info("Posts cache invalidated");
   } catch (error) {
-    console.error("Cache invalidation error:", error);
+    logger.error(`Cache invalidation error: ${error}`);
   }
 };
