@@ -10,7 +10,7 @@ let redis: IORedis;
 
 export const initializeCache = async () => {
   if (redis || !CACHE_ACTIVE) return;
-  console.log("Initializing Redis Cache...");
+  logger.info("Initializing Redis Cache...");
   redis = new IORedis({
     host: process.env.REDIS_HOST || "localhost",
     port: parseInt(process.env.REDIS_PORT || "6379"),
@@ -50,7 +50,7 @@ const getPostsFromCache = async (cachedKey: string) => {
   try {
     return JSON.parse(cached);
   } catch (error) {
-    console.log("Cache parse error:", error);
+    logger.error(`Cache parse error: ${error}`);
     await redis.del(cachedKey);
     return null;
   }

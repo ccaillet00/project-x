@@ -48,7 +48,7 @@
         Bereits dabei?
         <button
           type="button"
-          class="font-bold text-neutral hover:underline ml-1"
+          class="font-bold text-accent hover:underline ml-1"
           @click="$emit('switch')"
         >
           Zum Login

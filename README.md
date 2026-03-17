@@ -12,7 +12,6 @@ Project-x ist eine Full-Stack Micro-Blogging Applikation wo Benutzer kurze Posts
  
 - **Authentifizierung** — Registrierung & Login mit JWT Token
 - **Posts erstellen** — Tweets mit max. 255 Zeichen
-- **Likes & Kommentare** — Interaktion mit anderen Posts
 - **KI-Moderation** — Automatische Erkennung von Hassrede via Ollama
 - **Profil** — Eigene Posts & Avatar (Initialen-basiert)
 - **Dark/Light Mode** — Theme Toggle
