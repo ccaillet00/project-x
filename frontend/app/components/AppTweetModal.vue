@@ -46,9 +46,7 @@ const confirmEdit = () => {
                 {{ tweet.username || `User #${tweet.userId}` }}
               </p>
               <p class="text-xs opacity-40">
-                @{{
-                  tweet.user?.username?.toLowerCase() || `user_${tweet.userId}`
-                }}
+                @{{ tweet.username?.toLowerCase() || `user_${tweet.userId}` }}
               </p>
             </div>
           </div>
@@ -78,6 +76,21 @@ const confirmEdit = () => {
             </div>
           </div>
           <p v-else class="text-base leading-relaxed">{{ tweet.tweet }}</p>
+
+          <!-- KI Einschätzung -->
+          <div
+            v-if="tweet.correction && !isEditing"
+            class="flex items-start gap-2 bg-base-200/60 rounded-xl px-3 py-2"
+          >
+            <Icon
+              name="tabler:robot"
+              size="14"
+              class="opacity-40 mt-0.5 shrink-0"
+            />
+            <p class="text-xs opacity-40 italic leading-relaxed">
+              {{ tweet.correction }}
+            </p>
+          </div>
 
           <!-- Actions -->
           <div class="flex items-center gap-3 text-sm">

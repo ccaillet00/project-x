@@ -1,12 +1,12 @@
-# Project-x 🐦
+# Project-x
  
-Eine moderne Micro-Blogging Plattform inspiriert von Twitter — gebaut mit Nuxt 4, Node.js/Express, PostgreSQL und KI-gestützter Inhaltsmoderation via Ollama.
+Im Rahmen einer Transferarbeit im Fach Software und Plattformarchitektur haben wir eine moderne Micro-Blogging Plattform inspiriert von Twitter — gebaut mit Nuxt 4, Node.js/Express, PostgreSQL und KI-gestützter Inhaltsmoderation via Ollama. Das Projekt wurde praxisorientiert umgesetzt mit berücksichtigung der verschiedenen Architekturaspekte sowie mordernen Technologien
  
 ---
  
-## 📖 Was ist Project-x?
+## Was ist Project-x?
  
-Project-x ist eine Full-Stack Micro-Blogging Applikation wo Benutzer kurze Posts (Tweets) erstellen, liken und kommentieren können. Die Plattform verfügt über eine integrierte KI-Inhaltsmoderation die Hassrede automatisch erkennt und entsprechende Posts entfernt.
+Project-x ist eine Full-Stack Micro-Blogging Applikation wo Benutzer kurze Posts (Tweets) erstellen können. Die Plattform verfügt über eine integrierte KI-Inhaltsmoderation die Hassrede automatisch erkennt und entsprechende Posts entfernt.
  
 ### Features
  
@@ -26,11 +26,13 @@ Project-x ist eine Full-Stack Micro-Blogging Applikation wo Benutzer kurze Posts
 | Datenbank | PostgreSQL, Drizzle ORM |
 | KI | Ollama (granite4:1b) |
 | Message Broker | BullMQ, Redis |
+| Logging | Pino |
+| Monitoring | Grafana, Prometheus |
 | Infrastruktur | Docker, Nginx |
  
 ---
  
-## 🚀 Installation & Setup
+## Installation & Setup
  
 ### Voraussetzungen
  
@@ -42,7 +44,7 @@ Project-x ist eine Full-Stack Micro-Blogging Applikation wo Benutzer kurze Posts
 **1. Repository klonen**
  
 ```bash
-git clone https://github.com/dein-user/project-x.git
+git clone https://github.com/ccaillet00/project-x.git
 cd project-x
 ```
  
@@ -55,20 +57,14 @@ cp .env.example .env
 `.env` Datei anpassen:
  
 ```env
-# Datenbank
-POSTGRES_USER=postgres
-POSTGRES_PASSWORD=deinpasswort
-POSTGRES_DB=projectx
- 
 # JWT
-JWT_SECRET=dein-geheimer-schluessel
+JWT_SECRET=  'run command "openssl rand -base64 32" to generate a secret value'
  
 # Redis
-REDIS_HOST=redis
-REDIS_PORT=6379
+CACHE_ACTIVE= 'true or false'
  
-# Ollama
-OLLAMA_HOST=http://ollama:11434
+# Log Level
+LOG_LEVEL= 'info' or 'warn' or 'error'
 ```
  
 **3. Docker Container starten**
@@ -77,13 +73,7 @@ OLLAMA_HOST=http://ollama:11434
 docker compose up --build
 ```
  
-**4. Ollama Modell laden**
- 
-```bash
-docker exec ollama ollama pull granite4:1b
-```
- 
-**5. Applikation aufrufen**
+**4. Applikation aufrufen**
  
 | Service | URL |
 |---|---|
@@ -92,7 +82,7 @@ docker exec ollama ollama pull granite4:1b
  
 ---
  
-## 🔌 API Endpoints
+## API Endpoints
  
 ### Authentifizierung
  
@@ -154,33 +144,14 @@ docker exec ollama ollama pull granite4:1b
   "userId": 1,
   "username": "max",
   "created": "2026-03-17T10:00:00.000Z",
-  "sentiment": "ok",
+  "sentiment": "",
   "correction": "",
-  "likes": [],
-  "comments": []
 }
 ```
- 
+
 ---
  
-### Likes & Kommentare
- 
-| Method | Endpoint | Beschreibung | Auth |
-|---|---|---|---|
-| `POST` | `/api/posts/:id/like` | Post liken | ✅ |
-| `POST` | `/api/posts/:id/comments` | Kommentar hinzufügen | ✅ |
- 
-**Kommentar Request:**
-```json
-{
-  "userId": 1,
-  "content": "Toller Post!"
-}
-```
- 
----
- 
-## 📸 Screenshots
+## Screenshots
  
 ### Login & Registrierung
 ![Login Page](./docs/screenshots/login.png)
@@ -196,17 +167,9 @@ docker exec ollama ollama pull granite4:1b
  
 ---
  
-## 🏗️ Architektur
+## Architektur
  
-```
-Browser
-  └── Nuxt Frontend (Port 4000)
-        └── Nginx Loadbalancer (Port 80)
-              └── Express Backend (Port 3000)
-                    ├── PostgreSQL (Datenbank)
-                    ├── Redis + BullMQ (Message Broker)
-                    └── Ollama (KI Moderation)
-```
+![Architektur](./docs/Architektur/Project-x_Architektur.png)
  
 ### KI-Moderation Flow
  
@@ -221,7 +184,7 @@ Post erstellen
  
 ---
  
-## 🐳 Docker Services
+## Docker Services
  
 | Service | Beschreibung | Port |
 |---|---|---|
@@ -235,7 +198,7 @@ Post erstellen
  
 ---
  
-## 👥 Team
+## Team
  
 Project-x — entwickelt im Rahmen des Moduls Software- und Plattformarchitektur.
  

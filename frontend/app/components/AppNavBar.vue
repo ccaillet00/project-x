@@ -11,7 +11,7 @@
         type="text"
         placeholder="Search"
         class="input input-bordered w-24 md:w-auto"
-      >
+      />
       <div class="dropdown dropdown-end">
         <div tabindex="0" role="button" class="btn btn-ghost btn-circle p-0">
           <AvatarIcon :username="user?.username ?? ''" size="sm" />

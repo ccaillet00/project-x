@@ -73,9 +73,19 @@ const isOwner = computed(
       <!-- Tweet Text -->
       <p class="text-sm leading-relaxed">{{ data.tweet }}</p>
       <!-- KI Einschätzung -->
-      <div v-if="data.correction" class="flex items-start gap-2 bg-base-200/60 rounded-xl px-3 py-2" @click.stop>
-        <Icon name="tabler:robot" size="14" class="opacity-40 mt-0.5 shrink-0" />
-        <p class="text-xs opacity-40 italic leading-relaxed">{{ data.correction, data.sentiment }}</p>
+      <div
+        v-if="data.correction"
+        class="flex items-start gap-2 bg-base-200/60 rounded-xl px-3 py-2"
+        @click.stop
+      >
+        <Icon
+          name="tabler:robot"
+          size="14"
+          class="opacity-40 mt-0.5 shrink-0"
+        />
+        <p class="text-xs opacity-40 italic leading-relaxed">
+          {{ data.correction }}
+        </p>
       </div>
     </div>
   </div>

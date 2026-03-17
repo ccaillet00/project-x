@@ -16,8 +16,8 @@ export default defineNuxtConfig({
     public: {
       apiBaseUrl: "http://webserver:80",
       public: {
-        apiBaseUrl: "http://localhost"
-      }
+        apiBaseUrl: "http://localhost",
+      },
     },
   },
 

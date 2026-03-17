@@ -1,6 +1,5 @@
 export interface postForm {
-    tweet: string
+  tweet: string;
 }
 
-
-export{}
+export {};

@@ -5,9 +5,12 @@ definePageMeta({
   middleware: "auth",
   path: "/dashboard",
 });
-
 const { tweets, error, pending, refresh } = useTweets();
 const { selectedTweet, deleteTweet, editTweet } = useTweetActions(refresh);
+
+const selectTweet = (tweet: any) => {
+  selectedTweet.value = tweets.value?.find(t => t.id === tweet.id) ?? tweet
+}
 </script>
 
 <template>
@@ -45,14 +48,14 @@ const { selectedTweet, deleteTweet, editTweet } = useTweetActions(refresh);
     </div>
 
     <div v-else class="flex flex-col gap-3">
-      <AppTweetCard
-        v-for="item in tweets"
-        :key="item.id"
-        :data="item"
-        @select="selectedTweet = $event"
-        @edit="selectedTweet = $event"
-        @delete="deleteTweet"
-      />
+    <AppTweetCard
+      v-for="item in tweets"
+      :key="item.id"
+      :data="item"
+      @select="selectTweet"
+      @edit="selectTweet"
+      @delete="deleteTweet"
+    />
     </div>
   </div>
 
