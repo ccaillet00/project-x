@@ -16,7 +16,7 @@
 | Tester | pgbench Version | Transaction Type | Scaling Factor | Query Mode | Clients | Threads | Dauer | Transaktion verarbeitet | Fehlgeschlagene Transaktionen | Latency Average | Initial Connection Time | **TPS ohne Verbindungszeit** |
 | ------ | --------------- | ---------------- | -------------- | ---------- | ------- | ------- | ----- | ----------------------- | ----------------------------- | --------------- | ----------------------- | ---------------------------- |
 | Nikka  | 18.3 Debian     | TPC-B (built in) | 100            | simple     | 10      | 4       | 100 s | 140'302                 | 0 (0.000%)                    | 7.117 ms        | 148.030 ms              | **1'404.99**                 |
-| Leon   | 18.1 Debian     | TPC-B (built in) | 100            | simple     | 10      | 4       | 100 s | 500'000                 | 0 (0.000%)                    | 14.583 ms       | 643.171 ms              | **3'656.75**                 |
+| Leon   | 18.1 Debian     | TPC-B (built in) | 100            | simple     | 50      | 1       | -     | 500'000                 | 0 (0.000%)                    | 14.583 ms       | 643.171 ms              | **3'656.75**                 |
 | Cédric | 18.3 Debian     | TPC-B (built in) | 100            | simple     | 50      | 1       | -     | 500'000                 | 0 (0.000%)                    | 4.588 ms        | 64.433 ms               | **10'898.82**                |
 | Adel   | 18.3 Debian     | TPC-B (built in) | 100            | simple     | 50      | 1       | -     | 500'000                 | 0 (0.000%)                    | 18.319 ms       | 1686.859 ms             | **2729.46**                  |
 
