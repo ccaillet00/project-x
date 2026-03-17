@@ -1,6 +1,6 @@
 # Project-x
  
-Im Rahmen einer Transferarbeit im Fach Software und Plattformarchitektur haben wir eine moderne Micro-Blogging Plattform inspiriert von Twitter — gebaut mit Nuxt 4, Node.js/Express, PostgreSQL und KI-gestützter Inhaltsmoderation via Ollama. Das Projekt wurde praxisorientiert umgesetzt mit berücksichtigung der verschiedenen Architekturaspekte sowie mordernen Technologien
+Im Rahmen einer Transferarbeit im Fach Software und Plattformarchitektur haben wir eine moderne Micro-Blogging Plattform inspiriert von Twitter gebaut mit Nuxt 4, Node.js/Express, PostgreSQL und KI-gestützter Inhaltsmoderation via Ollama. Das Projekt wurde praxisorientiert umgesetzt mit berücksichtigung der verschiedenen Architekturaspekte sowie mordernen Technologien
  
 ---
  
@@ -197,7 +197,11 @@ Post erstellen
 | `ollama` | Ollama KI | 12434 |
  
 ---
- 
+## Performance Test
+
+[Performance_Test](/docs/Performance.md) 
+
+---
 ## Team
  
 Project-x — entwickelt im Rahmen des Moduls Software- und Plattformarchitektur.

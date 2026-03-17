@@ -34,23 +34,36 @@ const analyzeSentiment = async (job: Job) => {
   const texts = getPost;
   for (const text of texts) {
     const sentiment = await textAnalysis(text.tweet);
+    if (sentiment.sentiment === "dangerous") {
+      // Post löschen
+      await db.delete(twitterTable).where(eq(twitterTable.id, postId));
+      logger.info(
+        {
+          Post: postId.postId,
+          sentiment: sentiment.sentiment,
+          tweet: text.tweet,
+        },
+        "Post removed",
+      );
+    } else {
+      await db
+        .update(twitterTable)
+        .set({
+          sentiment: sentiment.sentiment,
+          correction: sentiment.correction,
+        })
+        .where(and(eq(twitterTable.id, postId)));
 
-    const updateDBPost = await db
-      .update(twitterTable)
-      .set({ sentiment: sentiment.sentiment, correction: sentiment.correction })
-      .where(and(eq(twitterTable.id, postId)));
-
-    logger.info(
-      {
-        text: text.tweet,
-        sentiment: sentiment.sentiment,
-        correction: sentiment.correction,
-        updateResult: updateDBPost,
-      },
-      "Sentiment updated in database",
-    );
+      logger.info(
+        {
+          text: text.tweet,
+          sentiment: sentiment.sentiment,
+          correction: sentiment.correction,
+        },
+        "Sentiment updated in database",
+      );
+    }
+    await invalidatePostsCache();
   }
-  await invalidatePostsCache();
 };
-
 export { sentimentQueue };
